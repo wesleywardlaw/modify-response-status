@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Response Editor</title>
+  <style>
+    body {
+      width: 500px;
+      padding: 16px;
+      font-family: Arial, sans-serif;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .header-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    input, select, textarea {
+      padding: 6px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    textarea {
+      min-height: 100px;
+      font-family: monospace;
+      resize: vertical;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    button:not(:disabled):hover {
+      background-color: #45a049;
+    }
+    .rule-list {
+      margin-top: 20px;
+    }
+    .rule-item {
+      padding: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 8px;
+      border-radius: 4px;
+    }
+    .remove-btn {
+      background-color: #f44336;
+    }
+    .remove-btn:hover {
+      background-color: #da190b;
+    }
+    .section {
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+    }
+    .section h3 {
+      margin-top: 0;
+    }
+    .status-section {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .status-section input[type="number"] {
+      width: 80px;
+    }
+    .status-section input[type="text"] {
+      flex-grow: 1;
+    }
+    .toggle-section {
+      margin-bottom: 8px;
+    }
+    .input-label {
+      display: block;
+      margin-bottom: 4px;
+      color: #666;
+      font-size: 0.9em;
+    }
+    .required {
+      color: #f44336;
+    }
+    .validation-message {
+      color: #f44336;
+      font-size: 0.85em;
+      margin-top: 4px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Response Editor</h2>
+  
+  <div class="form-group">
+    <label for="urlPattern" class="input-label">URL Pattern <span class="required">*</span></label>
+    <input type="text" id="urlPattern" placeholder="e.g., *://*.example.com/*">
+    <div id="urlPatternValidation" class="validation-message">Please enter a URL pattern</div>
+  </div>
+
+  <div class="section">
+    <div class="toggle-section">
+      <input type="checkbox" id="modifyStatus" />
+      <label for="modifyStatus">Modify Status Code</label>
+    </div>
+    <div class="status-section" id="statusSection" style="display: none;">
+      <div>
+        <label for="statusCode" class="input-label">Status Code</label>
+        <input type="number" id="statusCode" placeholder="e.g., 200" min="100" max="599">
+      </div>
+      <div>
+        <label for="statusText" class="input-label">Status Text</label>
+        <input type="text" id="statusText" placeholder="e.g., OK">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="toggle-section">
+      <input type="checkbox" id="modifyHeaders" />
+      <label for="modifyHeaders">Modify Headers</label>
+    </div>
+    <div id="headersContainer" style="display: none;">
+      <div class="header-row">
+        <div>
+          <label class="input-label">Header Name</label>
+          <input type="text" placeholder="Header name" class="header-name">
+        </div>
+        <div>
+          <label class="input-label">Operation</label>
+          <select class="header-operation">
+            <option value="set">Set</option>
+            <option value="remove">Remove</option>
+            <option value="append">Append</option>
+          </select>
+        </div>
+        <div>
+          <label class="input-label">Value</label>
+          <input type="text" placeholder="Header value" class="header-value">
+        </div>
+        <button class="remove-btn remove-header-row" style="margin-top: 21px;">X</button>
+      </div>
+      <button id="addHeaderBtn" class="add-header-btn">Add Header</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="toggle-section">
+      <input type="checkbox" id="modifyBody" />
+      <label for="modifyBody">Modify JSON Response</label>
+    </div>
+    <div id="bodyContainer" style="display: none;">
+      <label for="jsonBody" class="input-label">JSON Response Template</label>
+      <textarea id="jsonBody" placeholder="Enter JSON response body"></textarea>
+      <div style="margin-top: 8px;">
+        <small>Tip: Use $original to reference the original response body in your JSON</small>
+      </div>
+      <div id="jsonValidation" class="validation-message">Please enter valid JSON</div>
+    </div>
+  </div>
+
+  <button id="saveButton" class="save-rule-btn" disabled>Save Rule</button>
+
+  <div class="rule-list" id="ruleList">
+    <h3>Active Rules</h3>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html> 
