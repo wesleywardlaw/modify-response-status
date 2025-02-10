@@ -11,20 +11,10 @@
     .form-group {
       margin-bottom: 12px;
     }
-    .header-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
     input, select, textarea {
       padding: 6px;
       width: 100%;
       box-sizing: border-box;
-    }
-    textarea {
-      min-height: 100px;
-      font-family: monospace;
-      resize: vertical;
     }
     button {
       padding: 8px 16px;
@@ -122,50 +112,6 @@
     </div>
   </div>
 
-  <div class="section">
-    <div class="toggle-section">
-      <input type="checkbox" id="modifyHeaders" />
-      <label for="modifyHeaders">Modify Headers</label>
-    </div>
-    <div id="headersContainer" style="display: none;">
-      <div class="header-row">
-        <div>
-          <label class="input-label">Header Name</label>
-          <input type="text" placeholder="Header name" class="header-name">
-        </div>
-        <div>
-          <label class="input-label">Operation</label>
-          <select class="header-operation">
-            <option value="set">Set</option>
-            <option value="remove">Remove</option>
-            <option value="append">Append</option>
-          </select>
-        </div>
-        <div>
-          <label class="input-label">Value</label>
-          <input type="text" placeholder="Header value" class="header-value">
-        </div>
-        <button class="remove-btn remove-header-row" style="margin-top: 21px;">X</button>
-      </div>
-      <button id="addHeaderBtn" class="add-header-btn">Add Header</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="toggle-section">
-      <input type="checkbox" id="modifyBody" />
-      <label for="modifyBody">Modify JSON Response</label>
-    </div>
-    <div id="bodyContainer" style="display: none;">
-      <label for="jsonBody" class="input-label">JSON Response Template</label>
-      <textarea id="jsonBody" placeholder="Enter JSON response body"></textarea>
-      <div style="margin-top: 8px;">
-        <small>Tip: Use $original to reference the original response body in your JSON</small>
-      </div>
-      <div id="jsonValidation" class="validation-message">Please enter valid JSON</div>
-    </div>
-  </div>
-
   <button id="saveButton" class="save-rule-btn" disabled>Save Rule</button>
 
   <div class="rule-list" id="ruleList">
@@ -174,4 +120,4 @@
 
   <script src="popup.js"></script>
 </body>
-</html> 
+</html>
